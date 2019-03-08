@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<robot name="box" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- <xacro:property name="boxx" value="0.15" /> -->
+  <!-- <xacro:property name="boxy" value="0.15" /> -->
+  <xacro:property name="boxz" value="0.015" />
+
+
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+
+
+  <xacro:macro name="default_inertial" params="mass">
+    <inertial>
+      <mass value="${mass}" />
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+    </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="boxbase" params="prefix child boxx boxy *origin">
+    <link name="${prefix}box">
+      <visual>
+        <geometry>
+          <box size="${boxx} ${boxy} ${boxz}"/>
+        </geometry>
+        <material name="blue"/>
+        <origin xyz="0 0 ${boxz/2}" rpy="0 -0 0"/>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="${boxx} ${boxy} ${boxz}"/>
+        </geometry>
+      </collision>
+      <xacro:default_inertial mass="1"/>
+    </link>
+
+    <joint name="${prefix}box_joint" type="fixed">
+      <parent link="${prefix}box"/>
+      <child link="${child}"/>
+      <xacro:insert_block name="origin"/>
+    </joint>
+
+  </xacro:macro>
+</robot>

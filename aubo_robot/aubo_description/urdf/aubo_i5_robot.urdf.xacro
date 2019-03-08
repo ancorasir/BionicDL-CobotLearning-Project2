@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+       name="aubo_i5" >
+
+  <property name="prefix" value=""/>
+  <property name="M_PI" value="3.14159265359" />
+  <material name="gray" >
+    <color rgba="0.5 0.5 0.5 1"/>
+  </material>
+
+  <xacro:macro name="default_inertial" params="mass">
+    <inertial>
+      <mass value="${mass}" />
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+    </inertial>
+  </xacro:macro>
+
+  <!-- common stuff -->
+  <xacro:include filename="$(find aubo_description)/urdf/common.gazebo.xacro" />
+
+  <!-- ur5 -->
+  <xacro:include filename="$(find aubo_description)/urdf/aubo_i5.urdf.xacro" />
+
+  <!-- arm -->
+  <xacro:aubo_i5_robot/>
+
+  <link name="world" />
+  <joint name="world_base" type="fixed">
+    <parent link="world" />
+    <child link = "base_link" />
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+  </joint>
+
+  <!-- walls -->
+  <link name="wall">
+    <visual>
+      <geometry>
+        <box size="0.9 1.2 0.015"/>
+      </geometry>
+      <material name="gray"/>
+      <origin xyz="0 0 0.0075" rpy="0 -0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.9 1.2 0.015"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="1"/>
+  </link>
+  <joint name="world_wall_joint" type="fixed">
+    <parent link="world" />
+    <child link = "wall" />
+    <origin xyz="-0.25 -0.6 0.45" rpy="0.0 -1.57 0.0" />
+  </joint>
+
+  <link name="wall_1">
+    <visual>
+      <geometry>
+        <box size="0.9 0.9 0.015"/>
+      </geometry>
+      <material name="gray"/>
+      <origin xyz="0 0 0.0075" rpy="0 -0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.9 0.9 0.015"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="1"/>
+  </link>
+  <joint name="world_wall_1_joint" type="fixed">
+    <parent link="world" />
+    <child link = "wall_1" />
+    <origin xyz="0.45 0.2 0.45" rpy="-1.57 0.0 0.0" />
+  </joint>
+
+  <!-- table -->
+  <link name="tablebox">
+    <visual>
+      <geometry>
+        <box size="0.9 1.2 0.03"/>
+      </geometry>
+      <material name="gray"/>
+      <origin xyz="0 0 0.015" rpy="0 -0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.9 1.2 0.03"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="1"/>
+  </link>
+
+  <joint name="world_table_joint" type="fixed">
+    <parent link="world" />
+    <child link = "tablebox" />
+    <origin xyz="0.35 -0.5 -0.06" rpy="0.0 0.0 0.0" />
+  </joint>
+
+  <!-- robot base flange -->
+  <link name="basebox">
+    <visual>
+      <geometry>
+        <box size="0.2 0.2 0.03"/>
+      </geometry>
+      <material name="gray"/>
+      <origin xyz="0 0 0.015" rpy="0 -0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.2 0.2 0.03"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="1"/>
+  </link>
+  <joint name="world_basebox_joint" type="fixed">
+    <parent link="world" />
+    <child link = "basebox" />
+    <origin xyz="0.0 0.0 -0.03" rpy="0 0.0 0.0" />
+  </joint>
+
+  <link name="ee_link" />
+  <joint name="ee_joint" type="fixed">
+    <parent link="wrist3_Link" />
+    <child link = "ee_link" />
+    <origin xyz="0.0 0.0 0.13" rpy="0.0 -1.571 0.0" />
+  </joint>
+
+  <!-- <link name="suction_cup">
+    <visual>
+      <geometry>
+        <cylinder radius="0.01" length="0.13"/>
+      </geometry>
+      <material name="gray"/>
+      <origin xyz="0 0 0.0" rpy="0 -0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.01" length="0.13"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="1"/>
+  </link>
+  <joint name="wrist3_suction_cup_joint" type="fixed">
+    <parent link="wrist3_Link" />
+    <child link = "suction_cup" />
+    <origin xyz="0.0 0.0 0.07" rpy="0.0 0.0 0.0" />
+  </joint> -->
+
+</robot>

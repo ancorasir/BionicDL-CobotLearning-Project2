@@ -1,0 +1,8 @@
+<launch>
+  <!-- Set the file describing which sensor(s) to use to build the octomap  -->
+    <arg name="moveit_octomap_sensor_params_file"
+         default="$(find aubo_i5_moveit_config)/config/sensors_photoneo_pointcloud.yaml" />
+
+    <!-- sensors used to update the map -->
+    <rosparam command="load" file="$(arg moveit_octomap_sensor_params_file)" />
+</launch>
