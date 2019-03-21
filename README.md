@@ -4,7 +4,9 @@ The project is illustrated with Aubo-i5 and realsense 400 series. If you are doi
 # Project Setup
 Before running the project, make sure you've installed ROS kinetic (http://wiki.ros.org/kinetic/Installation/Ubuntu) and catkin_tools (https://catkin-tools.readthedocs.io/en/latest/installing.html).
 
-Please go to the each package under this repository for detailed explanations and installation guidance. Please install the [Realsense SDK](https://realsense.intel.com/sdk-2/#install) before you run the following steps.
+Please go to the each package under this repository for detailed explanations and installation guidance. Please install the [Realsense SDK](https://realsense.intel.com/sdk-2/#install) and update the [firmware](https://www.intel.com/content/dam/support/us/en/documents/emerging-technologies/intel-realsense-technology/Linux-RealSense-D400-DFU-Guide.pdf) in the realsense before you run the following steps.
+
+The realsense ros package in this repository is an old version 2.0.0. If you want to use the latest version, please git clone from the website [here](https://github.com/intel-ros/realsense)
 
 For this setup, catkin_ws is the name of active ROS Workspace, if your workspace name is different, change the commands accordingly
 If you do not have an active ROS workspace, you can create one by:
